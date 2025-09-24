@@ -51,16 +51,17 @@ export default function Connect() {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-black via-slate-900 via-purple-900 to-black">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-to-r from-cyan-600/10 via-blue-500/10 to-teal-600/10 rounded-full blur-3xl animate-spin-slow"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/15 to-blue-500/15 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/15 to-pink-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-to-r from-cyan-600/8 via-blue-500/8 via-purple-500/8 to-teal-600/8 rounded-full blur-3xl animate-spin-slow"></div>
+        <div className="absolute top-1/4 right-1/3 w-64 h-64 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
       </div>
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -78,7 +79,7 @@ export default function Connect() {
           </div>
           
           {connected && (
-            <button className="px-4 py-2 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 text-white transition-all duration-300 hover:scale-105">
+            <button className="px-4 py-2 rounded-xl bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-md border border-white/5 hover:from-black/50 hover:via-slate-700/30 hover:to-black/50 text-white transition-all duration-300 hover:scale-105">
               Dashboard
             </button>
           )}
@@ -129,7 +130,7 @@ export default function Connect() {
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/30 via-blue-600/30 to-teal-600/30 rounded-3xl blur-xl"></div>
               
               {/* Main Card */}
-              <div className="relative bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+              <div className="relative bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-2xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                 {connected ? (
                   <div className="text-center space-y-6">
                     <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center">
@@ -138,7 +139,7 @@ export default function Connect() {
                     
                     <div>
                       <h3 className="text-2xl font-bold text-white mb-2">Wallet Connected</h3>
-                      <div className="px-4 py-2 rounded-xl bg-black/20 border border-white/10">
+                      <div className="px-4 py-2 rounded-xl bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 border border-white/5">
                         <p className="text-slate-300 font-mono text-sm">{shortAddress(account?.address)}</p>
                       </div>
                     </div>
@@ -166,7 +167,7 @@ export default function Connect() {
                           <button
                             key={wallet.name}
                             onClick={() => handleConnect(wallet.name)}
-                            className="w-full flex items-center space-x-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 group"
+                            className="w-full flex items-center space-x-4 p-4 rounded-2xl bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 hover:from-black/50 hover:via-slate-700/30 hover:to-black/50 border border-white/5 hover:border-white/20 transition-all duration-300 hover:scale-105 group"
                           >
                             {wallet.icon ? (
                               <img src={wallet.icon} alt="" className="w-10 h-10 rounded-xl" />

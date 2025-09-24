@@ -1,9 +1,14 @@
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { Aptos } from '@aptos-labs/ts-sdk';
-import { TrendingUp, Shield, Zap, Wallet } from 'lucide-react';
+import { TrendingUp, Shield, Zap, Wallet, ArrowRight, Trophy } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-export default function Dashboard() {
+interface DashboardProps {
+  onNavigateToTransactions: () => void;
+  onNavigateToWinners: () => void;
+}
+
+export default function Dashboard({ onNavigateToTransactions, onNavigateToWinners }: DashboardProps) {
   const { disconnect, account } = useWallet();
   const [balance, setBalance] = useState<string>('0');
   const [loading, setLoading] = useState(true);
@@ -85,16 +90,17 @@ export default function Dashboard() {
   }, [account?.address]);
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-black via-slate-900 via-purple-900 to-black">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-to-r from-cyan-600/10 via-blue-500/10 to-teal-600/10 rounded-full blur-3xl animate-spin-slow"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/15 to-blue-500/15 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/15 to-pink-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-to-r from-cyan-600/8 via-blue-500/8 via-purple-500/8 to-teal-600/8 rounded-full blur-3xl animate-spin-slow"></div>
+        <div className="absolute top-1/4 right-1/3 w-64 h-64 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
       </div>
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -112,12 +118,12 @@ export default function Dashboard() {
           </div>
           
           <div className="flex items-center space-x-4">
-            <div className="px-4 py-2 rounded-xl bg-white/5 backdrop-blur-md border border-white/10">
+            <div className="px-4 py-2 rounded-xl bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-md border border-white/5">
               <span className="text-sm text-slate-300 font-mono">{shortAddress(account?.address)}</span>
             </div>
             <button 
               onClick={handleDisconnect}
-              className="px-4 py-2 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 text-white transition-all duration-300 hover:scale-105"
+              className="px-4 py-2 rounded-xl bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-md border border-white/5 hover:from-black/50 hover:via-slate-700/30 hover:to-black/50 text-white transition-all duration-300 hover:scale-105"
             >
               Disconnect
             </button>
@@ -137,7 +143,7 @@ export default function Dashboard() {
               {/* Wallet Balance Card */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-pink-600/30 rounded-2xl blur-xl"></div>
-                <div className="relative bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 p-6">
+                <div className="relative bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-2xl rounded-2xl border border-white/5 p-6">
                   <div className="flex items-center justify-between mb-4">
                     <Wallet className="w-8 h-8 text-purple-400" />
                     <span className="text-sm text-purple-300 font-medium">Wallet Balance</span>
@@ -151,7 +157,7 @@ export default function Dashboard() {
 
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/30 to-blue-600/30 rounded-2xl blur-xl"></div>
-                <div className="relative bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 p-6">
+                <div className="relative bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-2xl rounded-2xl border border-white/5 p-6">
                   <div className="flex items-center justify-between mb-4">
                     <TrendingUp className="w-8 h-8 text-cyan-400" />
                     <span className="text-sm text-cyan-300 font-medium">Total Deposited</span>
@@ -163,7 +169,7 @@ export default function Dashboard() {
 
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-600/30 to-emerald-600/30 rounded-2xl blur-xl"></div>
-                <div className="relative bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 p-6">
+                <div className="relative bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-2xl rounded-2xl border border-white/5 p-6">
                   <div className="flex items-center justify-between mb-4">
                     <Shield className="w-8 h-8 text-green-400" />
                     <span className="text-sm text-green-300 font-medium">Prizes Won</span>
@@ -175,7 +181,7 @@ export default function Dashboard() {
 
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-teal-600/30 rounded-2xl blur-xl"></div>
-                <div className="relative bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/10 p-6">
+                <div className="relative bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-2xl rounded-2xl border border-white/5 p-6">
                   <div className="flex items-center justify-between mb-4">
                     <Zap className="w-8 h-8 text-teal-400" />
                     <span className="text-sm text-teal-300 font-medium">Win Chance</span>
@@ -186,24 +192,57 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Coming Soon Message */}
-            <div className="mt-16">
+            {/* Quick Actions */}
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Deposit & Withdraw */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 via-blue-600/20 to-teal-600/20 rounded-3xl blur-xl"></div>
-                <div className="relative bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 p-12">
-                  <div className="max-w-2xl mx-auto text-center space-y-6">
-                    <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-300/30 flex items-center justify-center">
-                      <Zap className="w-10 h-10 text-cyan-300" />
+                <div className="relative bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-2xl rounded-3xl border border-white/5 p-8">
+                  <div className="text-center space-y-6">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-2">Ready to Start?</h3>
+                      <p className="text-slate-300">Deposit your APT to begin earning prizes</p>
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Dashboard Coming Soon</h3>
-                    <p className="text-slate-300 leading-relaxed">
-                      We're building an amazing dashboard experience where you'll be able to manage your deposits, 
-                      track your prizes, and monitor your earnings. Stay tuned for updates!
-                    </p>
+                    
+                    <button
+                      onClick={onNavigateToTransactions}
+                      className="inline-flex items-center px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
+                    >
+                      <span className="flex items-center">
+                        <Wallet className="w-5 h-5 mr-2" />
+                        Deposit & Withdraw
+                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recent Winners */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/20 via-orange-600/20 to-red-600/20 rounded-3xl blur-xl"></div>
+                <div className="relative bg-gradient-to-br from-black/30 via-slate-800/20 to-black/30 backdrop-blur-2xl rounded-3xl border border-white/5 p-8">
+                  <div className="text-center space-y-6">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-2">Recent Winners</h3>
+                      <p className="text-slate-300">See who's been winning big prizes</p>
+                    </div>
+                    
+                    <button
+                      onClick={onNavigateToWinners}
+                      className="inline-flex items-center px-8 py-4 rounded-2xl bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
+                    >
+                      <span className="flex items-center">
+                        <Trophy className="w-5 h-5 mr-2" />
+                        View Winners
+                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
