@@ -1,16 +1,29 @@
 import { useWallet } from '@aptos-labs/wallet-adapter-react'
 
 export default function Dashboard() {
-  const { connected, account } = useWallet()
+  const { connected, account, wallet, disconnect } = useWallet()
+  const toHex = (bytes) => {
+    try {
+      const arr = bytes instanceof Uint8Array ? bytes : Uint8Array.from(bytes || [])
+      return '0x' + Array.from(arr).map((b) => b.toString(16).padStart(2, '0')).join('')
+    } catch {
+      return ''
+    }
+  }
   const formatAddress = (addr) => {
     if (!addr) return ''
     if (typeof addr === 'string') return addr
     if (typeof addr === 'object') {
-      if (addr.data) return String(addr.data)
+      if (addr.data) return toHex(addr.data)
       if (addr.address) return String(addr.address)
       try { return JSON.stringify(addr) } catch { return '' }
     }
     return String(addr)
+  }
+  const shortAddress = (addr) => {
+    const a = formatAddress(addr)
+    if (!a) return ''
+    return a.length > 12 ? `${a.slice(0, 6)}...${a.slice(-4)}` : a
   }
 
   if (!connected) {
@@ -28,9 +41,19 @@ export default function Dashboard() {
     <div className="dark min-h-screen w-full bg-gradient-to-br from-gray-950 via-gray-900 to-black text-gray-100">
       <div className="max-w-6xl mx-auto px-4 py-16">
         <header className="mb-10">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <h1 className="text-3xl font-semibold tracking-tight">PoolTogether Aptos</h1>
-            <div className="text-xs opacity-75 break-all">{formatAddress(account?.address)}</div>
+            <div className="flex items-center gap-3">
+              <div className="glass-card px-3 py-2 text-xs">
+                <div className="opacity-70">Connected</div>
+                <div className="font-medium">{wallet?.name || 'Wallet'}</div>
+                <div className="opacity-70 break-all">{shortAddress(account?.address)}</div>
+              </div>
+              <button
+                className="rounded-lg bg-white/10 hover:bg-white/20 transition py-2 px-3 text-sm"
+                onClick={async () => { try { await disconnect() } catch (e) { console.error(e) } }}
+              >Disconnect</button>
+            </div>
           </div>
           <p className="text-sm opacity-70 mt-2">No-loss lottery. Deposit USDC, earn tickets, win the yield.</p>
         </header>
