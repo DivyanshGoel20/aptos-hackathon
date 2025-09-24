@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aptos-labs/wallet-adapter-ant-design": "^5.2.0",
+    "@aptos-labs/wallet-adapter-react": "^7.1.0",
+    "aptos": "^1.21.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
