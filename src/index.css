@@ -1,3 +1,11 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --color-glass-dark: rgba(17, 24, 39, 0.6);
+  --shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -66,3 +74,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Glassmorphism helpers */
+.glass-card {
+  background-color: var(--color-glass-dark);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+}
+

@@ -21,13 +21,4 @@ export function createAptosClient({ nodeApiUrl, apiKey } = {}) {
   return new Aptos(config)
 }
 
-/**
- * Example: fetch account info for 0x1 and return it.
- */
-export async function fetchGenesisAccountInfo(args) {
-  const aptos = createAptosClient(args)
-  const response = await aptos.account.getAccountInfo({ accountAddress: '0x1' })
-  return response
-}
-
 
